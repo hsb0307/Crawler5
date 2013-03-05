@@ -1,0 +1,249 @@
+﻿@*@model IEnumerable<CrawlerDemo2.Article>*@
+
+@{
+    Layout = "~/Views/Shared/_EasyuiLayout.cshtml";
+    ViewBag.Title = "Index";
+}
+<style type="text/css">
+body{ margin:0}
+.datagrid{ }
+.datagrid .panel-header{ border-left-width:0}
+.datagrid .panel-body{ border-left-width:0}
+h2{ margin:10px 5px 10px 5px;}
+p{ margin-left:10px;}
+
+</style>
+<h2 id="pageTitle">文章列表</h2>
+<table id="tblArticle"></table>
+
+@section scriptfiles {
+    @Html.Partial("scriptview")
+}
+
+
+@section scripts {
+<script type="text/javascript">
+    function viewRow(id, name) {
+        if (name && name.length > 40)
+            name = name.substr(0, 40) + "...";
+        addTabToParent(name, '@Url.Action("Details", "Article")' + '?id=' + id);
+    }
+
+
+
+    function deleteRow(id) {
+        //alert(taskItemId);
+        //$("#ProgressDialog").dialog("open");
+        $.ajax({
+            url: '@Url.Action("Delete")', //form.attr('action'),
+            type: "POST",
+            data: "id=" + id,
+            success: function (data) {
+                //$("#FormContainer").html(data);
+                //$.validator.unobtrusive.parse("form");
+                //window.parent.$('#tabControl').tabs('add', {
+                //    title: 'New Tab',
+                //    content: data,
+                //    closable: true
+                //});
+
+                alert("success");
+                $("#tblArticle").datagrid('reload');
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                alert("Error '" + jqXhr.status + "' (textStatus: '" + textStatus + "', errorThrown: '" + errorThrown + "')");
+            },
+            complete: function () {
+                //$("#ProgressDialog").dialog("close");
+                alert("complete");
+            }
+        });
+    }
+
+    function captureRule(taskItemId) {
+        addTabToParent('捕获规则', '@Url.Action("Index", "CaptureRule")' + '?taskitemid=' + taskItemId);
+    }
+
+   
+    $(document).ready(
+    function () {
+        
+        //$('#Industry').combobox({});
+        //$('#Category').combobox({});
+
+        var columns = [[
+                { field: 'ID', checkbox: true },
+                {
+                    field: 'Name', title: '标题', width: 380, resizable: false,
+                    formatter: function (value, rowData, rowIndex) {
+                        if (value && value.length > 90) {
+                            value = value.substr(0, 90) + "...";
+                        }
+                        return '<a href="javascript:void(0);" onclick="viewRow(&quot;' + rowData.ID + '&quot;, &quot;' + value + '&quot;);return false;">' + value + '</a>';
+                    }
+                },
+                {
+                    field: 'Url', title: 'Url', width: 160, align: 'right', sortable: true, resizable: true,
+                    formatter: function (value, rowData, rowIndex) {
+                        if (value && value.length > 40) {
+                            return "<a href='" + value + "' target='_blank'>" + value.substr(0, 40) + "</a>";
+                            //return value.substr(0, 20);
+                        }
+                        else {
+                            return "<a href='" + value + "' target='_blank'>" + value + "</a>";
+                        }
+                    }
+                },
+                //{ field: 'MaxPageCount', title: 'MaxPageCount', width: 80, align: 'right', sortable: true, resizable: false },
+                {
+                    field: 'CreatedDate', title: 'CreatedDate', width: 80, align: 'right', sortable: true, resizable: false,
+                    formatter: function (value, rowData, rowIndex) {
+                        return convertDateString(value);
+                    }
+                },
+                {
+                    field: 'opt', title: '操作列', width: 70, rowspan: 2, align: 'center',
+                    formatter: function (value, rowData, rowIndex) {
+                        return '<a href="javascript:void(0);" title="' + rowIndex + '" onclick="viewRow(&quot;' + rowData.ID + '&quot;, &quot;' + rowData.Name + '&quot;);" style="text-decoration: none;color: #800080;">查看</a> ' +
+                            '<a href="javascript:void(0);" title="' + rowIndex + '" onclick="deleteRow(&quot;' + rowData.ID + '&quot;);" style="margin-left:12px; text-decoration: none;color: #800080;">删除</a> ';
+
+
+                    }
+                }
+        ]];
+
+        function createUser() {
+            //$('#btn-save,#btn-cancel').linkbutton();
+            //$('#industry').datebox({ currentText: '今天', closeText: "取消", okText: '确定' });
+
+            //var editForm = $('#userForm').window({ modal: true }).window('open');
+            //showWindow("添加任务", '@Url.Action("Create", "Task")');
+            alert("add");
+        }
+        var btnCreate = { id: 'btnCreate', text: '新增', iconCls: 'icon-add', handler: createUser };
+        var btnEdit = { id: 'btnEdit', text: '编辑', iconCls: 'icon-edit', disabled: true, handler: createUser };
+        var btnSave = { id: 'btnSave', text: '保存', iconCls: 'icon-save', disabled: false, handler: createUser };
+        var btnDelete = { id: 'btnDelete', text: '删除', iconCls: 'icon-remove', handler: createUser };
+        var btnSearch = { id: 'btnSearch', text: '查询', iconCls: 'icon-search', handler: createUser };
+        var btnSelect = { id: 'btnSelect', text: '全选', iconCls: 'icon-ok', handler: createUser };
+
+        var toolbar = [btnCreate, '-', btnEdit, '-', btnSave, '-', btnDelete, '-', btnSearch, '-', btnSelect];
+
+
+        $('#tblArticle').datagrid({
+            url: '@Url.Action("GetPaged","Article")' + (window.location.search ? ('?' + window.location.search.substr(1)) : ''),
+                 title: '人员列表',
+                 width: parent.$("#tabControl").width() - 10,
+                 height: parent.$("#center").height() - 90,// document.body.offsetHeight -60 , // $(window.parent.document.getElementById("center")).height() - $("#operationRegion").height() - $("#pageTitle").height() - 100,
+                 fitColumns: true,
+                 nowrap: false,
+                 loadMsg: "数据加载中，请稍后……",
+                 pagination: true,
+                 pageSize: 20,
+                 idField: 'ID',
+                 columns: columns,
+                 rowStyler: function (index, row, css) {
+                     //                    if (row.listprice > 80) {
+                     //                        return 'background-color:#6293BB;color:#fff;font-weight:bold;';
+                     //                    }
+                 },
+                 toolbar: toolbar,
+                 onSelect: function (rowIndex, rowData) {
+                     //btnEdit.disabled = false;
+                     $('#btnEdit').linkbutton('enable');
+                 },
+                 onBeforeEdit: function (index, row) {
+                     alert("onBeforeEdit");
+                     row.editing = true;
+                     $('#tblArticle').datagrid('refreshRow', index);
+                     count++;
+                 },
+                 onAfterEdit: function (index, row) {
+                     alert("onAfterEdit");
+                     row.editing = true;
+                     $('#tblArticle').datagrid('refreshRow', index);
+                     count--;
+                 },
+                 onCancelEdit: function (index, row) {
+                     alert("onCancelEdit");
+                     row.editing = false;
+                     $('#tblArticle').datagrid('refreshRow', index);
+                     count--;
+                 }
+             });
+
+
+        var pg = $("#tblArticle").datagrid("getPager");
+        if (pg) {
+            $(pg).pagination({
+                beforePageText: '当前是第',
+                afterPageText: '页，总共 {pages} 页',
+                displayMsg: '当前显示从 {from} 到 {to}，总共 {total} 条',
+                onBeforeRefresh: function () {
+                    alert('before refresh');
+                },
+                onRefresh: function (pageNumber, pageSize) {
+                    alert(pageNumber);
+                    alert(pageSize);
+                },
+                onChangePageSize: function () {
+                    alert('pagesize changed');
+                },
+                onSelectPage: function (pageNumber, pageSize) {
+
+                    //重新加载datagrid的数据  
+                    var url = '@Url.Action("GetPaged","Article")';
+                    url +=  ( window.location.search ? ( '?' + window.location.search.substr(1)) : '');
+                         var opts = $('#tblArticle').datagrid('options');
+                         opts.url = url;
+                         
+                         var queryParams = opts.queryParams;
+                         queryParams.searchBox = $('#pageTitle').html();
+                         //queryParams.industry = $('#Industry').combobox('getValue');
+                         //queryParams.category = $('#Category').combobox('getValue');
+                         //queryParams.institution = $("txtSrcConn").val();
+                         //alert(opts.url);
+                         $("#tblArticle").datagrid('reload');
+                         //alert(opts.url);
+                         // ================================
+
+                     }
+                 });
+                 }
+
+        $("#addItem").click(function () {
+            var row = $("#tblArticle").datagrid("getSelected");
+            if (row) {
+                //showWindow("ddd", '@Url.Action("Create", "TaskItem")' + '?taskid=' + row.ID);
+                     addTab('添加任务项', '@Url.Action("Create", "TaskItem")' + '?taskid=' + row.ID);
+                 } else {
+                     alert("请先选中要添加任务项的任务！");
+                 }
+             });
+
+        // =============================
+        $("#btnSearch").click(function () {
+            //var url = '@Url.Action("GetEmployeePaged","Employee")';
+                 //url += "?pageIndex=" + pageNumber;
+                 var opts = $('#tblArticle').datagrid('options');
+                 var queryParams = opts.queryParams;
+                 //opts.url = url;
+                 alert(opts.url);
+                 queryParams.searchBox = $('#pageTitle').html();
+                 //queryParams.industry = $('#Industry').combobox('getValue');
+                 //queryParams.category = $('#Category').combobox('getValue');
+                 //queryParams.institution = $("#txtSrcConn").val();
+                 $("#tblArticle").datagrid('reload');
+             });
+
+        // =============================
+        //var $body = $('body');
+        //alert($body.css('padding-top'));
+        //alert($body.css('margin-top'));
+        //alert($body.css('margin-bottom'));
+        //alert($body.css('margin-right'));
+        //alert($body.css('margin'));
+        //alert($body.css('padding'));
+    });
+</script>
+}

@@ -1,0 +1,108 @@
+﻿@model Crawler.Entity.Task
+
+@{
+    Layout = "~/Views/Shared/_SimpleLayout.cshtml";
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Task</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CategoryId, "TaskCategory")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("CategoryId", String.Empty)
+            @Html.ValidationMessageFor(model => model.CategoryId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TaskType)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TaskType)
+            @Html.ValidationMessageFor(model => model.TaskType)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Encoding)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Encoding)
+            @Html.ValidationMessageFor(model => model.Encoding)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Cookie)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Cookie)
+            @Html.ValidationMessageFor(model => model.Cookie)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LoginUrl)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LoginUrl)
+            @Html.ValidationMessageFor(model => model.LoginUrl)
+        </div>
+
+@*        <div class="editor-label">
+            @Html.LabelFor(model => model.Executed)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Executed)
+            @Html.ValidationMessageFor(model => model.Executed)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RowStatus)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RowStatus)
+            @Html.ValidationMessageFor(model => model.RowStatus)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedDate)
+            @Html.ValidationMessageFor(model => model.CreatedDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Remark)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Remark)
+            @Html.ValidationMessageFor(model => model.Remark)
+        </div>*@
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

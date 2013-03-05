@@ -1,0 +1,119 @@
+﻿@model Crawler.Entity.TaskItem
+
+@{
+    Layout = "~/Views/Shared/_SimpleLayout.cshtml";
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>TaskItem</legend>
+
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Url)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Url)
+            @Html.ValidationMessageFor(model => model.Url)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.IsNavigation)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.IsNavigation)
+            @Html.ValidationMessageFor(model => model.IsNavigation)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AutoPaging)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AutoPaging)
+            @Html.ValidationMessageFor(model => model.AutoPaging)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PageCategory)
+        </div>
+        <div class="editor-field">
+           @* @Html.EditorFor(model => model.PageCategory)*@
+            @Html.DropDownList("PageCategory", String.Empty)
+            @Html.ValidationMessageFor(model => model.PageCategory)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NextPageText)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NextPageText)
+            @Html.ValidationMessageFor(model => model.NextPageText)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MaxPageCount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MaxPageCount)
+            @Html.ValidationMessageFor(model => model.MaxPageCount)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NextPageUrlXPath)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NextPageUrlXPath)
+            @Html.ValidationMessageFor(model => model.NextPageUrlXPath)
+        </div>
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.RowStatus)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RowStatus)
+            @Html.ValidationMessageFor(model => model.RowStatus)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedDate)
+            @Html.ValidationMessageFor(model => model.CreatedDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Remark)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Remark)
+            @Html.ValidationMessageFor(model => model.Remark)
+        </div>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TaskId, "Task")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("TaskId", String.Empty)
+            @Html.ValidationMessageFor(model => model.TaskId)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

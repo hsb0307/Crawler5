@@ -1,0 +1,171 @@
+﻿@model Crawler.Entity.CaptureRule
+
+@{
+    Layout = "~/Views/Shared/_SimpleLayout.cshtml";
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>CaptureRule</legend>
+        @Html.Hidden("TaskitemId", (string)ViewBag.TaskItemId)
+        <div>
+            <span>使用已有CaptureRule：</span>
+            <div class="editor-field">
+            @Html.DropDownList("CaptureRuleId", String.Empty)
+        </div>
+        </div>
+
+        <table>
+            <tr><td><div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div></td><td><div class="editor-label">
+            @Html.LabelFor(model => model.StartString)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.StartString)
+            @Html.ValidationMessageFor(model => model.StartString)
+        </div></td></tr>
+            <tr><td><div class="editor-label">
+            @Html.LabelFor(model => model.EndString)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EndString)
+            @Html.ValidationMessageFor(model => model.EndString)
+        </div></td><td><div class="editor-label">
+            @Html.LabelFor(model => model.XPath)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.XPath)
+            @Html.ValidationMessageFor(model => model.XPath)
+        </div></td></tr>
+            <tr><td><div class="editor-label">
+            @Html.LabelFor(model => model.ContentType)
+        </div>
+        <div class="editor-field">
+            @*@Html.EditorFor(model => model.ContentType)*@
+            @Html.DropDownList("ContentType", String.Empty)
+            @Html.ValidationMessageFor(model => model.ContentType)
+        </div></td><td> <div class="editor-label">
+            @Html.LabelFor(model => model.Category)
+        </div>
+        <div class="editor-field">
+            @*@Html.EditorFor(model => model.Category)*@
+            @Html.DropDownList("Category", String.Empty)
+            @Html.ValidationMessageFor(model => model.Category)
+        </div></td></tr>
+            <tr><td><div class="editor-label">
+            @Html.LabelFor(model => model.MatchMethod)
+        </div>
+        <div class="editor-field">
+            @*@Html.EditorFor(model => model.MatchMethod)*@
+            @Html.DropDownList("MatchMethod", String.Empty)
+            @Html.ValidationMessageFor(model => model.MatchMethod)
+        </div></td><td><div class="editor-label">
+            @Html.LabelFor(model => model.MatchRegex)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MatchRegex)
+            @Html.ValidationMessageFor(model => model.MatchRegex)
+        </div></td></tr>
+            <tr><td><div class="editor-label">
+            @Html.LabelFor(model => model.ProcessMethod)
+        </div>
+        <div class="editor-field">
+            @*@Html.EditorFor(model => model.ProcessMethod)*@
+            @Html.DropDownList("ProcessMethod", String.Empty)
+            @Html.ValidationMessageFor(model => model.ProcessMethod)
+        </div></td><td><div class="editor-label">
+            @Html.LabelFor(model => model.Prefix)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Prefix)
+            @Html.ValidationMessageFor(model => model.Prefix)
+        </div></td></tr>
+            <tr><td><div class="editor-label">
+            @Html.LabelFor(model => model.Suffix)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Suffix)
+            @Html.ValidationMessageFor(model => model.Suffix)
+        </div></td><td><div class="editor-label">
+            @Html.LabelFor(model => model.ReplaceRegex)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ReplaceRegex)
+            @Html.ValidationMessageFor(model => model.ReplaceRegex)
+        </div></td></tr>
+            <tr><td><div class="editor-label">
+            @Html.LabelFor(model => model.SortOrder)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SortOrder)
+            @Html.ValidationMessageFor(model => model.SortOrder)
+        </div></td><td><div class="editor-label">
+            @Html.LabelFor(model => model.NextPageText)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NextPageText)
+            @Html.ValidationMessageFor(model => model.NextPageText)
+        </div></td></tr>
+            <tr><td><div class="editor-label">
+            @Html.LabelFor(model => model.NextPageUrlXPath)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NextPageUrlXPath)
+            @Html.ValidationMessageFor(model => model.NextPageUrlXPath)
+        </div></td><td><div class="editor-label">
+            @Html.LabelFor(model => model.MaxPageCount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MaxPageCount)
+            @Html.ValidationMessageFor(model => model.MaxPageCount)
+        </div></td></tr>
+           
+        </table>
+        
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.RowStatus)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RowStatus)
+            @Html.ValidationMessageFor(model => model.RowStatus)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedDate)
+            @Html.ValidationMessageFor(model => model.CreatedDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Remark)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Remark)
+            @Html.ValidationMessageFor(model => model.Remark)
+        </div>*@
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

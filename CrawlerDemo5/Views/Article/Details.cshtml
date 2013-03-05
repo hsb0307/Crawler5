@@ -1,0 +1,25 @@
+﻿@model Crawler.Entity.Article
+
+@{
+    Layout = "~/Views/Shared/_SimpleLayout.cshtml";
+    ViewBag.Title = "Details";
+}
+
+ 
+<style type="text/css">
+        body{margin:10px 5px;}
+</style>
+<div class="display-field">
+    <a href="@Html.DisplayFor(model => model.Url)" title="@Html.DisplayFor(model => model.Name)" target="_blank">原始地址</a>
+</div>
+<div class="display-field">
+    @Html.DisplayFor(model => model.Url)
+</div>
+
+<div class="display-field">
+    @Html.Raw(Model.ContentText)
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
