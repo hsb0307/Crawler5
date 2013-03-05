@@ -413,6 +413,7 @@
     <Content Include="Views\TaskItem\Index.cshtml" />
     <Content Include="Views\Task\Create.cshtml" />
     <Content Include="Views\Task\Index.cshtml" />
+    <Content Include="unity.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

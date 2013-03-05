@@ -7,6 +7,10 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
+using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.Configuration;
+using Husb.Web;
+
 namespace CrawlerDemo5
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -23,6 +27,16 @@ namespace CrawlerDemo5
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+
+            var container = new UnityContainer();
+            container.LoadConfiguration();
+
+            // 如果需要 类似 ServiceLocator.Current.GetInstance<ITaskItemService>()这样的代码，
+            // 则需要下面两行
+            //var serviceLocator = new UnityServiceLocator(container);
+            //Microsoft.Practices.ServiceLocation.ServiceLocator.SetLocatorProvider(() => serviceLocator);
+
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
 }

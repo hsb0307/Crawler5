@@ -86,7 +86,7 @@ namespace Husb.Data
         }
 
 
-        public DbContext Context
+        public IDbContext Context
         {
             get { return repository.Context; }
         }

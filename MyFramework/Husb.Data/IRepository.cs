@@ -25,6 +25,6 @@ namespace Husb.Data
         
         IQueryable<T> Query { get; }
 
-        DbContext Context { get; }
+        IDbContext Context { get; }
     }
 }

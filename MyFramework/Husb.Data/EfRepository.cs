@@ -19,12 +19,12 @@ namespace Husb.Data
 {
     public class EfRepository<T> : IRepository<T> where T : class, IEntity //where T : BaseEntity  class
     {
-        private readonly DbContext _context;
+        private readonly IDbContext _context;
         private readonly IDbSet<T> _entities;
         //private readonly PluralizationService _pluralizer = PluralizationService.CreateService(CultureInfo.GetCultureInfo("en"));
 
 
-        public EfRepository(DbContext context)
+        public EfRepository(IDbContext context)
         {
             _context = context;
             _entities = context.Set<T>();
@@ -167,7 +167,7 @@ namespace Husb.Data
         }
 
 
-        public DbContext Context
+        public IDbContext Context
         {
             get { return _context; }
         }

@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<enumerableData>
+ <!--
+  <nations id="0" name="nations" friendlyName="民族" >
+    <item id="1" name="汉族"></item>
+    <item id="2" name="壮族"></item>
+    <item id="3" name="毛南族"></item>
+    <item id="4" name="乌孜别克族"></item>
+    <item id="5" name="塔塔尔族"></item>
+    <item id="6" name="布依族"></item>
+    <item id="7" name="土家族"></item>
+    <item id="8" name="白族"></item>
+    <item id="9" name="蒙古族"></item>
+    <item id="10" name="畲族"></item>
+    <item id="11" name="哈尼族"></item>
+    <item id="12" name="高山族"></item>
+    <item id="13" name="土族"></item>
+    <item id="14" name="仡佬族"></item>
+    <item id="15" name="俄罗斯族"></item>
+    <item id="16" name="独龙族"></item>
+    <item id="17" name="回族"></item>
+    <item id="18" name="朝鲜族"></item>
+    <item id="19" name="哈萨克族"></item>
+    <item id="20" name="拉祜族"></item>
+    <item id="21" name="达斡尔族"></item>
+    <item id="22" name="锡伯族"></item>
+    <item id="23" name="鄂伦春族"></item>
+    <item id="24" name="鄂温克族"></item>
+    <item id="25" name="藏族"></item>
+    <item id="26" name="满族"></item>
+    <item id="27" name="傣族"></item>
+    <item id="28" name="水族"></item>
+    <item id="29" name="仫佬族"></item>
+    <item id="30" name="阿昌族"></item>
+    <item id="31" name="德昂族"></item>
+    <item id="32" name="赫哲族"></item>
+    <item id="33" name="维吾尔族"></item>
+    <item id="34" name="侗族"></item>
+    <item id="35" name="黎族"></item>
+    <item id="36" name="东乡族"></item>
+    <item id="37" name="羌族"></item>
+    <item id="38" name="普米族"></item>
+    <item id="39" name="保安族"></item>
+    <item id="40" name="门巴族"></item>
+    <item id="41" name="苗族"></item>
+    <item id="42" name="瑶族 "></item>
+    <item id="43" name="傈僳族"></item>
+    <item id="44" name="纳西族"></item>
+    <item id="45" name="布朗族"></item>
+    <item id="46" name="塔吉克族"></item>
+    <item id="47" name="裕固族"></item>
+    <item id="48" name="珞巴族"></item>
+    <item id="49" name="彝族"></item>
+    <item id="50" name="柯尔克孜族"></item>
+    <item id="51" name="佤族"></item>
+    <item id="52" name="景颇族"></item>
+    <item id="53" name="撒拉族"></item>
+    <item id="54" name="怒族"></item>
+    <item id="55" name="京族"></item>
+    <item id="56" name="基诺族 "></item>
+  </nations>
+-->
+  <priority id="1" name="priority" friendlyName="优先级" >
+    <item id="1" name="无" data="10080"></item>
+    <item id="2" name="低" data="10080"></item>
+    <item id="3" name="中" data="1440"></item>
+    <item id="4" name="高" data="720"></item>
+    <item id="5" name="加急" data="60"></item>
+    <item id="6" name="特急" data="10"></item>
+  </priority>
+  <taskStatus id="2" name="taskStatus" friendlyName="任务状态" >
+    <item id="1" name="新建"></item>
+    <item id="2" name="已分配"></item>
+    <item id="3" name="执行中"></item>
+    <item id="4" name="已完成"></item>
+    <item id="5" name="确实完成"></item>
+    <item id="6" name="已关闭"></item>
+    <item id="7" name="已删除"></item>
+    <item id="8" name="已无效"></item>
+  </taskStatus>
+  <taskSources id="3" name="taskSources" friendlyName="部门" >
+    <item id="1" name="办公室"></item>
+    <item id="2" name="部门经理"></item>
+    <item id="3" name="财务部"></item>
+  </taskSources>
+  <significant id="4" name="significant" friendlyName="重要性" >
+    <item id="1" name="不重要"></item>
+    <item id="2" name="普通"></item>
+    <item id="3" name="重要"></item>
+    <item id="4" name="极重要"></item>
+  </significant>
+  <issueLevel id="5" name="issueLevel" friendlyName="民族" >
+    <item id="1" name="省文档"></item>
+    <item id="2" name="市文档"></item>
+  </issueLevel>
+  <secretLevel id="6" name="nations" friendlyName="密级" >
+    <item id="1" name="公开"></item>
+    <item id="2" name="普密"></item>
+    <item id="3" name="绝密"></item>
+  </secretLevel>
+  <education id="7" name="education" friendlyName="学历" >
+    <item id="1" name="小学"></item>
+    <item id="2" name="初中"></item>
+    <item id="3" name="中专"></item>
+    <item id="4" name="高中"></item>
+    <item id="5" name="大专"></item>
+    <item id="6" name="大本"></item>
+    <item id="7" name="硕士"></item>
+    <item id="8" name="博士"></item>
+    <item id="9" name="博士后"></item>
+  </education>
+  <postTitle id="8" name="nations" friendlyName="职称" >
+    <item id="0" name="无职称"></item>
+    <item id="1" name="助理工程师"></item>
+    <item id="2" name="工程师"></item>
+    <item id="3" name="高级工程师"></item>
+  </postTitle>
+
+  <approvalObject id="9" name="nations" friendlyName="审批类型" >
+    <item id="0" name="财务审批"></item>
+    <item id="1" name="生产审批"></item>
+    <item id="2" name="销售审批"></item>
+    <item id="3" name="供应审批"></item>
+    <item id="4" name="其它审批"></item>
+  </approvalObject>
+  <postType id="10" name="nations" friendlyName="帖子类型" >
+    <item id="0" name="技术类帖子"></item>
+    <item id="1" name="管理类帖子"></item>
+    <item id="2" name="其它类帖子"></item>
+  </postType>
+  <systemFunction id="11" name="nations" friendlyName="模块" >
+    <item id="0" name="系统管理"></item>
+    <item id="1" name="档案管理"></item>
+    <item id="2" name="任务管理"></item>
+    <item id="3" name="公共事务"></item>
+    <item id="4" name="人力资源"></item>
+  </systemFunction>
+  <approvalStatus id="12" name="nations" friendlyName="申请状态" >
+    <item id="0" name="新建申请"></item>
+    <item id="1" name="待审"></item>
+    <item id="2" name="在审"></item>
+    <item id="3" name="否决待改"></item>
+    <item id="4" name="通过"></item>
+    <item id="5" name="已执行"></item>
+    <item id="6" name="否决"></item>
+    <item id="7" name="已取消"></item>
+    <item id="8" name="已确认执行"></item>
+  </approvalStatus>
+  <!--
+  <sportEvent id="13" name="sportEvent" friendlyName="运动项目">
+    <item id="1" name="跆拳道"></item>
+    <item id="2" name="散手"></item>
+    <item id="3" name="篮球"></item>
+    <item id="4" name="射击"></item>
+    <item id="5" name="游泳"></item>
+    <item id="6" name="田径"></item>
+    <item id="7" name="古典跤"></item>
+    <item id="8" name="举重"></item>
+    <item id="9" name="散打"></item>
+    <item id="10" name="击剑"></item>
+    <item id="11" name="空手道"></item>
+    <item id="12" name="排球"></item>
+    <item id="13" name="拳击"></item>
+    <item id="14" name="柔道"></item>
+    <item id="15" name="自由跤"></item>
+    <item id="16" name="射箭"></item>
+    <item id="17" name="自行车"></item>
+    <item id="18" name="男子篮球乙组"></item>
+    <item id="19" name="女子篮球甲组"></item>
+    <item id="20" name="中长跑"></item>
+    <item id="21" name="短跑"></item>
+    <item id="22" name="跳跃"></item>
+    <item id="23" name="径100米"></item>
+    <item id="24" name="径800米"></item>
+    <item id="25" name="国际式摔跤"></item>
+    <item id="26" name="投掷"></item>
+    <item id="27" name="武术"></item>
+    <item id="28" name="铅球"></item>
+    <item id="29" name="体操男队"></item>
+    <item id="30" name="步枪"></item>
+    <item id="31" name="标枪"></item>
+    <item id="32" name="短跨"></item>
+    <item id="33" name="田径标枪"></item>
+    <item id="34" name="摔跤"></item>
+    <item id="35" name="女子篮球乙组"></item>
+    <item id="36" name="男子篮球甲组"></item>
+    <item id="37" name="男篮"></item>
+    <item id="38" name="女篮"></item>
+    <item id="39" name="跳远"></item>
+    <item id="40" name="男子手枪慢射"></item>
+    <item id="41" name="女子手枪"></item>
+    <item id="42" name="男子手枪速射"></item>
+    <item id="43" name="移动靶"></item>
+    <item id="44" name="飞碟"></item>
+    <item id="45" name="三级跳远"></item>
+    <item id="46" name="铁饼"></item>
+    <item id="47" name="跨栏"></item>
+    <item id="48" name="赛艇"></item>
+    <item id="49" name="皮划艇"></item>
+    <item id="50" name="跳水"></item>
+    <item id="51" name="体操女队"></item>
+    <item id="52" name="蹦床"></item>
+    <item id="53" name="田径撑杆跳高"></item>
+    <item id="54" name="田径全能"></item>
+    <item id="55" name="田径短跑"></item>
+    <item id="56" name="田径短跨"></item>
+    <item id="57" name="田径竞走"></item>
+    <item id="58" name="田径跳高"></item>
+    <item id="59" name="田径中长跑"></item>
+    <item id="60" name="径跳远"></item>
+    <item id="61" name="体操"></item>
+    <item id="62" name="竞走"></item>
+    <item id="63" name="男子排球"></item>
+    <item id="64" name="柔道女"></item>
+    <item id="65" name="自由跤1"></item>
+    <item id="66" name="足球"></item>
+    <item id="67" name="乒乓球"></item>
+    <item id="68" name="女子排球"></item>
+    <item id="69" name="径200米"></item>
+    <item id="70" name="径400米"></item>
+    <item id="71" name="径1500米"></item>
+    <item id="72" name="羽毛球"></item>
+    <item id="73" name="跳高"></item>
+    <item id="74" name="撑杆跳高"></item>
+    <item id="75" name="链球"></item>
+    <item id="76" name="网球"></item>
+    <item id="77" name="女子篮球"></item>
+    <item id="78" name="男子篮球"></item>
+    <item id="79" name="女子足球"></item>
+    <item id="80" name="中跑"></item>
+    <item id="81" name="武术散手"></item>
+    <item id="82" name="长跑"></item>
+    <item id="83" name="田径（短跑）"></item>
+    <item id="84" name="田径（中长跑）"></item>
+    <item id="85" name="女子手球"></item>
+    <item id="86" name="自由跤2"></item>
+    <item id="87" name="男子举重"></item>
+    <item id="88" name="女子举重"></item>
+    <item id="89" name="男子手球"></item>
+    <item id="90" name="铁人三项"></item>
+    <item id="91" name="手球"></item>
+    <item id="92" name="全能"></item>
+    <item id="93" name="短投"></item>
+    <item id="94" name="帆船"></item>
+    <item id="95" name="武术散打"></item>
+    <item id="96" name="女子柔道"></item>
+    <item id="97" name="武术套路"></item>
+  </sportEvent>
+-->
+  <degree id="14" name="degree" friendlyName="学位" >
+    <item id="1" name="无学位"></item>
+    <item id="2" name="学士学位"></item>
+    <item id="3" name="博士学位"></item>
+  </degree>
+
+  <politicalAffiliation id="15" name="politicalAffiliation" friendlyName="政治面貌" >
+    <item id="1" name="群众"></item>
+    <item id="2" name="团员"></item>
+    <item id="3" name="党员"></item>
+  </politicalAffiliation>
+  <award id="16" name="award" friendlyName="奖惩" >
+    <item id="1" name="奖励"></item>
+    <item id="2" name="处分"></item>
+  </award>
+  <identity id="17" name="identity" friendlyName="身份" >
+    <item id="1" name="农民"></item>
+    <item id="2" name="工人"></item>
+    <item id="3" name="干部"></item>
+    <item id="4" name="聘用干部"></item>
+    <item id="5" name="其他"></item>
+  </identity>
+
+  <ownership id="18" name="ownership" friendlyName="单位性质" >
+    <item id="1" name="行政机关"></item>
+    <item id="2" name="事业机关"></item>
+    <item id="3" name="全拨事业"></item>
+    <item id="4" name="差补事业"></item>
+    <item id="5" name="自筹事业"></item>
+  </ownership>
+  <resourceType id="19" name="resourceType" friendlyName="网络资源类型" >
+    <item id="1" name="普通网页"></item>
+    <item id="2" name="Ajax网页"></item>
+    <item id="3" name="文档"></item>
+    <item id="4" name="音视频文档"></item>
+    <item id="5" name="其他"></item>
+  </resourceType>
+  <encoding id="20" name="encoding" friendlyName="编码格式" >
+    <item id="1" name="自动"></item>
+    <item id="2" name="UTF-8"></item>
+    <item id="3" name="GB2312"></item>
+    <item id="4" name="GBK"></item>
+    <item id="5" name="BIG5"></item>
+  </encoding>
+
+  <pageType id="21" name="pageType" friendlyName="网络资源类型" >
+    <item id="1" name="普通网页"></item>
+    <item id="2" name="RSS"></item>
+    <item id="3" name="OPML"></item>
+  </pageType>
+
+  <captureRuleType id="22" name="v" friendlyName="捕获规则的类别" >
+    <item id="1" name="导航页捕获规则"></item>
+    <item id="2" name="内容页捕获规则"></item>
+    <item id="3" name="RSS"></item>
+    <item id="4" name="OPML"></item>
+  </captureRuleType>
+
+  <contentType id="23" name="contentType" friendlyName="内容类别" >
+    <item id="1" name="纯文本"></item>
+    <item id="2" name="Html文本"></item>
+    <item id="3" name="图片"></item>
+    <item id="4" name="文件"></item>
+  </contentType>
+
+  <matchMethod  id="24" name="matchMethod" friendlyName="匹配方法">
+    <item id="1" name="不匹配"></item>
+    <item id="2" name="去掉网页标记"></item>
+    <item id="3" name="只匹配中文"></item>
+    <item id="4" name="只匹配数字"></item>
+    <item id="5" name="用自定义正则表达式匹配"></item>
+  </matchMethod>
+  <processMethod id="25" name="processMethod" friendlyName="处理方法">
+    <item id="1" name="不处理"></item>
+    <item id="2" name="输出时去掉网页标记"></item>
+    <item id="3" name="输出时附加前缀"></item>
+    <item id="4" name="输出时附加后缀"></item>
+    <item id="5" name="输出时去掉网页标记"></item>
+    <item id="6" name="去掉左边的字符"></item>
+    <item id="7" name="去掉右边的字符"></item>
+    <item id="8" name="替换指定的字符"></item>
+    <item id="9" name="用指定的正则表达式替换"></item>
+  </processMethod>
+  <taskType id="26" name="taskType" friendlyName="任务类型" >
+    <item id="1" name="任务类型1"></item>
+    <item id="2" name="任务类型2"></item>
+    <item id="3" name="任务类型3"></item>
+  </taskType>
+  
+</enumerableData>
