@@ -3,6 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrawlerDemo5", "CrawlerDemo5\CrawlerDemo5.csproj", "{2BD63C88-3C6C-452A-9B1C-0A08B8021A9E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MyFramework", "MyFramework", "{E871639A-3F6F-4E8A-88EA-C68174EAB802}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{8FB7D152-6072-436D-BAF7-5130DA5398F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Husb.Common", "MyFramework\Husb.Common\Husb.Common.csproj", "{C4E90D4B-5FFA-4034-9DEB-D70D62C8F4A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Husb.Data", "MyFramework\Husb.Data\Husb.Data.csproj", "{A25678ED-5480-413F-B4EC-6303C27815F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Husb.Web", "MyFramework\Husb.Web\Husb.Web.csproj", "{4C5440F1-A21B-478C-99C0-40AFEDCC95EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crawler.Entity", "Library\Crawler.Entity\Crawler.Entity.csproj", "{DE9CA8C5-764E-4899-A827-F270EBEA8A19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crawler.Service", "Library\Crawler.Service\Crawler.Service.csproj", "{F348859D-5E07-4885-93F3-786D06EEF983}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,8 +27,38 @@ Global
 		{2BD63C88-3C6C-452A-9B1C-0A08B8021A9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BD63C88-3C6C-452A-9B1C-0A08B8021A9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BD63C88-3C6C-452A-9B1C-0A08B8021A9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4E90D4B-5FFA-4034-9DEB-D70D62C8F4A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4E90D4B-5FFA-4034-9DEB-D70D62C8F4A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4E90D4B-5FFA-4034-9DEB-D70D62C8F4A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4E90D4B-5FFA-4034-9DEB-D70D62C8F4A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A25678ED-5480-413F-B4EC-6303C27815F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A25678ED-5480-413F-B4EC-6303C27815F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A25678ED-5480-413F-B4EC-6303C27815F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A25678ED-5480-413F-B4EC-6303C27815F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C5440F1-A21B-478C-99C0-40AFEDCC95EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C5440F1-A21B-478C-99C0-40AFEDCC95EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C5440F1-A21B-478C-99C0-40AFEDCC95EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C5440F1-A21B-478C-99C0-40AFEDCC95EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE9CA8C5-764E-4899-A827-F270EBEA8A19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE9CA8C5-764E-4899-A827-F270EBEA8A19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE9CA8C5-764E-4899-A827-F270EBEA8A19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE9CA8C5-764E-4899-A827-F270EBEA8A19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F348859D-5E07-4885-93F3-786D06EEF983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F348859D-5E07-4885-93F3-786D06EEF983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F348859D-5E07-4885-93F3-786D06EEF983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F348859D-5E07-4885-93F3-786D06EEF983}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C4E90D4B-5FFA-4034-9DEB-D70D62C8F4A5} = {E871639A-3F6F-4E8A-88EA-C68174EAB802}
+		{A25678ED-5480-413F-B4EC-6303C27815F3} = {E871639A-3F6F-4E8A-88EA-C68174EAB802}
+		{4C5440F1-A21B-478C-99C0-40AFEDCC95EF} = {E871639A-3F6F-4E8A-88EA-C68174EAB802}
+		{DE9CA8C5-764E-4899-A827-F270EBEA8A19} = {8FB7D152-6072-436D-BAF7-5130DA5398F2}
+		{F348859D-5E07-4885-93F3-786D06EEF983} = {8FB7D152-6072-436D-BAF7-5130DA5398F2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal

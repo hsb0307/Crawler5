@@ -40,6 +40,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.2.1.505.2\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -171,6 +180,30 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\pqgrid\images\column-header-bg.png" />
+    <Content Include="Content\pqgrid\images\column-header-over-bg.gif" />
+    <Content Include="Content\pqgrid\images\horiz-bg.png" />
+    <Content Include="Content\pqgrid\images\horiz-slider-bg.png" />
+    <Content Include="Content\pqgrid\images\horiz-slider-center.png" />
+    <Content Include="Content\pqgrid\images\loading.gif" />
+    <Content Include="Content\pqgrid\images\page-first-disabled.gif" />
+    <Content Include="Content\pqgrid\images\page-first.gif" />
+    <Content Include="Content\pqgrid\images\page-last-disabled.gif" />
+    <Content Include="Content\pqgrid\images\page-last.gif" />
+    <Content Include="Content\pqgrid\images\page-next-disabled.gif" />
+    <Content Include="Content\pqgrid\images\page-next.gif" />
+    <Content Include="Content\pqgrid\images\page-prev-disabled.gif" />
+    <Content Include="Content\pqgrid\images\page-prev.gif" />
+    <Content Include="Content\pqgrid\images\refresh.gif" />
+    <Content Include="Content\pqgrid\images\sort_asc.gif" />
+    <Content Include="Content\pqgrid\images\sort_desc.gif" />
+    <Content Include="Content\pqgrid\images\sprite.png" />
+    <Content Include="Content\pqgrid\images\vert-bg.png" />
+    <Content Include="Content\pqgrid\images\vert-slider-bg.png" />
+    <Content Include="Content\pqgrid\images\vert-slider-center.png" />
+    <Content Include="Content\pqgrid\pqgrid.dev.css" />
+    <Content Include="Content\pqgrid\pqgrid.min.css" />
+    <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -193,12 +226,16 @@
     <Content Include="Content\themes\base\jquery.ui.core.css" />
     <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
     <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.menu.css" />
     <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
     <Content Include="Content\themes\base\jquery.ui.resizable.css" />
     <Content Include="Content\themes\base\jquery.ui.selectable.css" />
     <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.spinner.css" />
     <Content Include="Content\themes\base\jquery.ui.tabs.css" />
     <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\jquery.ui.tooltip.css" />
+    <Content Include="Content\themes\base\minified\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -219,12 +256,15 @@
     <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.menu.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.spinner.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Content\themes\cupertino\images\animated-overlay.gif" />
     <Content Include="Content\themes\cupertino\images\ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
     <Content Include="Content\themes\cupertino\images\ui-bg_flat_15_cd0a0a_40x100.png" />
@@ -283,7 +323,8 @@
     <Content Include="Content\themes\ui-lightness\jquery.ui.theme.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
@@ -301,6 +342,8 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\pqgrid.dev.js" />
+    <Content Include="Scripts\pqgrid.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -346,6 +389,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Library\Crawler.Entity\Crawler.Entity.csproj">
+      <Project>{de9ca8c5-764e-4899-a827-f270ebea8a19}</Project>
+      <Name>Crawler.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library\Crawler.Service\Crawler.Service.csproj">
+      <Project>{f348859d-5e07-4885-93f3-786d06eef983}</Project>
+      <Name>Crawler.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyFramework\Husb.Common\Husb.Common.csproj">
+      <Project>{c4e90d4b-5ffa-4034-9deb-d70d62c8f4a5}</Project>
+      <Name>Husb.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyFramework\Husb.Data\Husb.Data.csproj">
+      <Project>{a25678ed-5480-413f-b4ec-6303c27815f3}</Project>
+      <Name>Husb.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyFramework\Husb.Web\Husb.Web.csproj">
+      <Project>{4c5440f1-a21b-478c-99c0-40afedcc95ef}</Project>
+      <Name>Husb.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
