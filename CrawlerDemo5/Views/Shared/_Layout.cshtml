@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+       @* @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+        @Styles.Render("~/Content/themes/cupertino/css")
+        @Scripts.Render("~/bundles/modernizr")
+        <style type="text/css">
+	body {font-size: 12px;font-family: Verdana, Geneva, Helvetica, sans-serif; }
+    a {
+    color: #333;
+    outline: none;
+    padding-left: 3px;
+    padding-right: 3px;
+    text-decoration: underline;
+}
+
+    a:link, a:visited,
+    a:active, a:hover {
+        color: #333;
+    }
+
+    a:hover {
+        background-color: #c7d1d6;
+    }
+     .float-left { float: left;}
+     .float-right { float: right;}
+      #login {}
+      #login ul {margin: 0;}
+    #login li {display: inline;list-style: none;}
+	/* remove padding and scrolling from elements that contain an Accordion OR a content-div */
+	.ui-layout-center ,	/* has content-div */
+	.ui-layout-west ,	/* has Accordion */
+	.ui-layout-east ,	/* has content-div ... */
+	.ui-layout-east .ui-layout-content { /* content-div has Accordion */
+		padding: 0;
+		overflow: hidden;
+	}
+	.ui-layout-center P.ui-layout-content {
+		line-height:	1.4em;
+		margin:			0; /* remove top/bottom margins from <P> used as content-div */
+	}
+	h3, h4 { /* Headers & Footer in Center & East panes */
+		font-size:		1.1em;
+		background:		#EEF;
+		border:			1px solid #BBB;
+		border-width:	0 0 1px;
+		padding:		7px 10px;
+		margin:			0;
+	}
+	.ui-layout-east h4 { /* Footer in East-pane */
+		font-size:		0.9em;
+		font-weight:	normal;
+		border-width:	1px 0 0;
+	}
+	#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+
+
+	</style>
+    </head>
+    <body>
+       
+<div class="ui-layout-north ui-widget-content" style="display: none;">
+	<div class="float-left">
+        <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
+    </div>
+    <div id="login" class="float-right">
+        @Html.Partial("_LoginPartial")
+    </div>
+</div>
+
+<div class="ui-layout-south ui-widget-content ui-state-error" style="display: none;"> 
+ &copy; @DateTime.Now.Year - My ASP.NET MVC Application
+</div>
+
+<div class="ui-layout-center" style="display: none;"> 
+<!--
+	<h3 class="ui-widget-header">Center Pane</h3>
+	<div class="ui-layout-content ui-widget-content">
+		
+		
+	</div>
+	-->
+	<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1">Nunc tincidunt</a></li>
+		<li><a href="#tabs-2">ParamQuery</a> <span class='ui-icon ui-icon-close'>Remove Tab</span></li>
+		
+	</ul>
+	<div id="tabs-1">
+		@RenderSection("featured", required: false)
+            <div class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </div>
+	</div>
+	<div id="tabs-2">
+		<p>Proin lectus.</p>
+	</div>
+	
+    </div>
+
+</div>
+
+<div class="ui-layout-west" style="display: none;">
+	<div id="accordion" class="basic">
+
+			<h3><a href="#">Loading/Rendering Data</a></h3>
+                <div>
+                    <ul>
+
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                        <li><a href="/demos/grid_table" class='acc-label'>HTML Table</a></li>
+                        <li><a href="/demos/grid_xml" class='acc-label'>XML Data</a></li>
+                        <!--<li><a href="Default.aspx" class='acc-label'>JSON data</a></li>-->
+                        <li><a href="/demos/grid_array" class='acc-label'>Array data</a></li>
+                        <li><a href="/demos/render_cells" class='acc-label'>Render Cells</a></li>
+                    </ul>
+                </div>
+                <h3><a href="#">Resizing</a></h3>
+                <div>
+                    <ul>
+                        <li><a href="/demos/resizable_columns" class='acc-label'>Resizable columns</a></li>
+                        <li><a href="/demos/resizable_grid" class='acc-label'>Resizable Grid</a></li>
+                        <li><a href="/demos/resizable_popup" class='acc-label'>Grid in popup</a></li>
+                    </ul>
+                </div>
+
+	</div>
+</div>
+
+<div class="ui-layout-east" style="display: none;">
+	<h3 class="ui-widget-header">East Pane</h3>
+
+	<div class="ui-layout-content">
+		<div id="accordion2" class="basic">
+
+			<h3><a href="#">Loading/Rendering Data</a></h3>
+                <div>
+                    <ul>
+                        <li><a href="/demos/grid_table" class='acc-label'>HTML Table</a></li>
+                        <li><a href="/demos/grid_xml" class='acc-label'>XML Data</a></li>
+                        <!--<li><a href="Default.aspx" class='acc-label'>JSON data</a></li>-->
+                        <li><a href="/demos/grid_array" class='acc-label'>Array data</a></li>
+                        <li><a href="/demos/render_cells" class='acc-label'>Render Cells</a></li>
+                    </ul>
+                </div>
+                <h3><a href="#">Resizing</a></h3>
+                <div>
+                    <ul>
+                        <li><a href="/demos/resizable_columns" class='acc-label'>Resizable columns</a></li>
+                        <li><a href="/demos/resizable_grid" class='acc-label'>Resizable Grid</a></li>
+                        <li><a href="/demos/resizable_popup" class='acc-label'>Grid in popup</a></li>
+                    </ul>
+                </div>
+
+		</div>
+	</div>
+
+	<h4 class="ui-widget-content ui-state-hover">Accordion inside DIV.ui-layout-content</h4>
+</div>
+
+
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                myLayout = $('body').layout({
+                    west__size: 300
+                , east__size: 300
+                    // RESIZE Accordion widget when panes resize
+                , west__onresize: $.layout.callbacks.resizePaneAccordions
+                , east__onresize: $.layout.callbacks.resizePaneAccordions
+                });
+
+                // ACCORDION - in the West pane
+                //$("#accordion1").accordion({
+                //	heightStyle:	"fill"
+                //});
+
+                // ACCORDION - in the East pane - in a 'content-div'
+                $("#accordion2").accordion({
+                    heightStyle: "fill"
+                , active: 1
+                });
+
+                //$( "#tabs" ).tabs();
+                var scriptt, scriptt2;
+                var $tabs = $("#tabs").tabs({
+                    beforeLoad: function (event, ui) {
+                        //debugger;
+                        var selector = ui.panel.selector;
+                        if ($(selector).html().length > 1) {
+                            //alert('already present and loaded');
+                            event.preventDefault();
+                            return false;
+                        }
+                        //ui.ajaxSettings.url+="?_cache="+Math.random().replace(".","");
+                        ui.ajaxSettings.url = ui.ajaxSettings.url + "?ajaxMode=true&data=" + (new Date()).getTime();
+                        //alert(ui.ajaxSettings.url);
+                        ui.jqXHR.error(function () {
+                            ui.panel.html("Couldn't load this tab. We'll try to fix this as soon as possible. ");
+                        });
+
+                        ui.jqXHR.success(function (data, textStatus, jqXHR) {
+                            //debugger;
+                            var dom = $(data);
+                            scriptt = dom.filter("script.prettyprint,style.prettyprint").html(); //text() doesn't work for IE.
+                            scriptt2 = dom.filter("script.prettyprint2,style.prettyprint2").html(); //text() doesn't work for IE.
+
+                            //alert(scriptt);
+                            //dom.filter("pre.prettyprint").text(scriptt);
+
+                        });
+                    },
+                    load: function (event, ui) {
+                        //debugger;
+                        $(ui.panel).find("pre.prettyprint").text(scriptt);
+                        $(ui.panel).find("pre.prettyprint2").text(scriptt2);
+                        prettyPrint();
+                    }
+                });
+                function getUrl(href) {
+                    //var href2 = "../demos/" + href;
+                    var href2 = document.location.toString() + "/" + href;
+                    return href2;
+                }
+                $("#accordion").accordion({
+                    heightStyle: "content", create: function (evt, ui) {
+                        //debugger;
+                        //cons.log(this);
+                        var $lis = $(this).find("li");
+                        $lis.each(function (i, li) {
+                            var $li = $(li);
+                            var $a = $li.find("a");
+
+                            var href = $a.attr("href");
+                            //if (i == 0) alert(href);
+                            //$a.prop("href", href);
+                            var title = $a.text();
+                            var title = "Open " + title + " in new Tab/Window";
+                            //$li.append("<a href='" + href + "' title=\"" + title + "\" target='_blank' style='margin-left:10px;'>" +
+                            //    "<img style='border:0px;' src='../Content/images/target_blank.png'/></a>");
+                        });
+                    }
+                });
+                //alert($( "#accordion" ).accordion('option','heightStyle'));
+                function addTab(lbl, href) {
+                    var $lis = $("#tabs").find("ul.ui-tabs-nav>li>a");
+                    var found_li = null, indx = 0;
+                    $lis.each(function (i, li) {
+                        var txt = $(li).text();
+                        if (txt == lbl) {
+                            //found=true;
+                            indx = i;
+                            found_li = li;
+                            return false;
+                        }
+                    });
+                    if (found_li) {
+                        $tabs.tabs({ active: indx });
+                        return;
+                    }
+                    $tabs.find("ul.ui-tabs-nav").append("<li><a href='" + href + "'>" + lbl + "</a><span class='ui-icon ui-icon-close'>Remove Tab</span></li>");
+
+                    var indx = $tabs.find("ul.ui-tabs-nav>li").length;
+                    //alert(indx)
+
+                    $tabs.tabs('refresh');
+                    $tabs.tabs({ active: indx - 1 });
+                }
+                //addTab();
+                $("a.acc-label").click(function (evt) {
+                    var lbl = $(this).text();
+                    var href = $(this).attr("href");
+                    //alert(href);
+                    try {
+                        _gaq.push(['_trackPageview', href]); //Google Analytics tracking.
+                    }
+                    catch (ex) { }
+                    addTab(lbl, href);
+                    evt.preventDefault();
+                    return false;
+                });
+                // close icon: removing the tab on click
+                $("#tabs span.ui-icon-close").on("click", function () {
+                    var panelId = $(this).closest("li").remove().attr("aria-controls");
+                    $("#" + panelId).remove();
+                    //ToDo: Clean up the grid (destroy).
+                    $tabs.tabs("refresh");
+                });
+
+
+                // THEME SWITCHER
+                //addThemeSwitcher('.ui-layout-north', { top: '12px', right: '5px' });
+                // if a new theme is applied, it could change the height of some content,
+                // so call resizeAll to 'correct' any header/footer heights affected
+                // NOTE: this is only necessary because we are changing CSS *AFTER LOADING* using themeSwitcher
+                setTimeout(myLayout.resizeAll, 1000); /* allow time for browser to re-render with new theme */
+
+            });
+	</script>
+
+        @RenderSection("scripts", required: false)
+    </body>
+</html>
