@@ -80,7 +80,6 @@ namespace CrawlerDemo5.Controllers
             //}
             string article = taskItemService.GetArticle(taskItem);
             return new ContentResult { Content = article };
-            
         }
 
         //

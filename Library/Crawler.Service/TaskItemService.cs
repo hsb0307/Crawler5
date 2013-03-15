@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.ServiceModel.Syndication;
+using System.Runtime.Caching;
 using Crawler.Entity;
 using Husb.Data;
 
@@ -18,10 +20,11 @@ namespace Crawler.Service
     public class TaskItemService : ServiceBase<TaskItem>, ITaskItemService
     {
         private readonly IRepository<TaskItem> taskItemRepository;
-        private readonly IRepository<Article> articleRepository;
+        //private readonly IRepository<Article> articleRepository; // 
+        private readonly IArticleService articleRepository;
 
         public TaskItemService(IRepository<TaskItem> taskItemRepository,
-            IRepository<Article> articleRepository)
+            IArticleService articleRepository)
             : base(taskItemRepository)
         {
             this.taskItemRepository = taskItemRepository;
@@ -32,10 +35,12 @@ namespace Crawler.Service
         public string GetArticle(TaskItem taskItem)
         {
             Encoding encoding = null;//
-            if (taskItem.Task.Encoding != null)
+            Crawler.Entity.Task task = taskItem.Task;
+            if (task.Encoding != null && task.Encoding !="auto")
             {
-                encoding = Encoding.GetEncoding(taskItem.Task.Encoding);
+                encoding = Encoding.GetEncoding(task.Encoding);
             }
+            int pageType = task.TaskType;
 
             CaptureRule rule1 = taskItem.CaptureRules.FirstOrDefault(c => c.Category == 1);// 导航页提取的规则
             CaptureRule rule2 = taskItem.CaptureRules.FirstOrDefault(c => c.Category == 2);// 内容页提取的规则
@@ -44,10 +49,11 @@ namespace Crawler.Service
             taskItemRepository.Context.Entry<TaskItem>(taskItem).State = System.Data.EntityState.Modified;
             
             //Tuple<string, string, HashSet<String>> tuple = null;
+            HashSet<Item> feeds = null;
             string html = "";
             if (taskItem.IsNavigation)
             {
-                SaveArticles(taskItem, encoding, taskItem.Url, rule1, rule2, taskItem.NextPageUrlXPath, 0, taskItem.MaxPageCount);
+                SaveArticles(taskItem, encoding, taskItem.Url, rule1, rule2, 0, pageType);
             }
             else
             {
@@ -73,10 +79,56 @@ namespace Crawler.Service
                     a.ContentText = t.Item2;
                 }
                 articleRepository.Create(a);
+
+                feeds.Add(new Item { Title = a.Name, Url = a.Url });
+            }
+            feeds = GetFeeds(null);
+            foreach (var feed in feeds)
+            {
+                html += "{\"title\":\"" + feed.Title + "\", \"url\":\"" +  feed.Url + "\"},";
+            }
+            if (html.Length > 1)
+            {
+                html = html.Remove(html.Length - 1);
             }
             return html;
         }
 
+        private void SaveArticles(TaskItem taskItem, Encoding encoding, string url, CaptureRule rule1, CaptureRule rule2, int count, int pageType = 1)
+        {
+            Tuple<HashSet<Item>, string> t = GetUrls(encoding, url, rule1, taskItem.NextPageUrlXPath, taskItem.NextPageText, pageType);
+
+            GetFeeds(t.Item1);
+
+            Tuple<string, string> tuple = null;
+            //var content = "";
+            foreach (var item in t.Item1)
+            {
+                if (articleRepository.GetArticleByURL(item.Url) != null) continue; 
+
+                tuple = GetHtml(encoding, item.Url, rule2);
+                Article article = new Article();
+                article.ID = Guid.NewGuid();
+                article.Url = item.Url;
+                article.Name = tuple.Item1;
+                article.ContentText = ""; //tuple.Item2;
+                //article.ContentText = tuple.Item2;
+                article.TaskItemId = taskItem.ID;
+                article.TaskItem = taskItem;
+                article.CategoryId = 1;
+
+                articleRepository.Create(article);
+
+                //WriteLog("<br />" + tuple.Item1 + "<br />" + tuple.Item2, ".htm");
+                count++;
+            }
+            if (count < taskItem.MaxPageCount && !string.IsNullOrEmpty(t.Item2))
+            {
+                SaveArticles(taskItem, encoding, t.Item2, rule1, rule2,  count, pageType);
+            }
+        }
+
+        /*
         private void SaveArticles(TaskItem taskItem, Encoding encoding, string url, CaptureRule rule1,  CaptureRule rule2, string nextPageUrlPattern,  int count , int maxCount)
         {
             Tuple<HashSet<String>, string> t = GetUrls(encoding, url, rule1, nextPageUrlPattern, taskItem.NextPageText);
@@ -104,6 +156,7 @@ namespace Crawler.Service
                 SaveArticles(taskItem, encoding, t.Item2, rule1, rule2, nextPageUrlPattern, count, maxCount);
             }
         }
+        */
 
         private void GetConsequentArticle(string title,  string content,  Encoding encoding, string url, CaptureRule rule, string nextPageUrlPattern, string nextPage)
         {
@@ -127,32 +180,14 @@ namespace Crawler.Service
    
         }
 
+        /*
         private static Tuple<HashSet<String>, string> GetUrls(Encoding encoding, string url, CaptureRule rule, string nextPageUrlPattern, string nextPage)
         {
             HashSet<String> urls = new HashSet<string>();
             string nextPageUrl = null;
             if (!String.IsNullOrEmpty(rule.XPath))
             {
-                HtmlAgilityPack.HtmlWeb htmlWeb = new HtmlAgilityPack.HtmlWeb();
-                HtmlAgilityPack.HtmlDocument doc = null;
-                if (encoding != null)
-                {
-                    htmlWeb.AutoDetectEncoding = false;
-                    htmlWeb.OverrideEncoding = encoding;
-                }
-                try
-                {
-                    doc = htmlWeb.Load(url);
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-
-                }
-                
+                HtmlAgilityPack.HtmlDocument doc = GetHtmlByXPath(encoding, url);
                 HtmlAgilityPack.HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(rule.XPath);
                 foreach (var n in nodes)
                 {
@@ -194,19 +229,8 @@ namespace Crawler.Service
                 }
             }
             else
-            {
-                Func<object, string> t4 = uri =>
-                {
-                    using (var wc = new System.Net.WebClient())
-                    {
-                        wc.Encoding = Encoding.UTF8;
-                        return wc.DownloadString((String)uri);
-                    }
-                };
-
-                System.Threading.Tasks.Task<string> task = System.Threading.Tasks.Task.Factory.StartNew<string>(() => t4(url));
-                string html = task.Result;
-
+            {  
+                string html = GetHtmlByRegEx(encoding, url);
                 html = GetHtml(html, rule.StartString, rule.EndString);
                 //string urlPattern = @"(?<=" + rule.StartString + @")[\s\S]*?(?=" + rule.EndString + ")"; // <div class=""post_item_body"">    </h3>
                 string achorPattern = @"(?<=<a [^>]+?>)[\s\S]*?(?=</a>)";
@@ -229,6 +253,103 @@ namespace Crawler.Service
             }
             Tuple<HashSet<String>, string> tuple = Tuple.Create(urls, nextPageUrl);
             return tuple;
+        }
+        */
+        private static Tuple<HashSet<Item>, string> GetUrls(Encoding encoding, string url, CaptureRule rule, string nextPageUrlPattern, string nextPage, int pageType = 1 )
+        {
+            HashSet<Item> urls = new HashSet<Item>();
+            string nextPageUrl = null;
+            if (pageType == 1)
+            {
+                if (!String.IsNullOrEmpty(rule.XPath))
+                {
+                    HtmlAgilityPack.HtmlDocument doc = GetHtmlByXPath(encoding, url);
+                    HtmlAgilityPack.HtmlNodeCollection nodes = doc.DocumentNode.SelectNodes(rule.XPath);
+                    foreach (var n in nodes)
+                    {
+                        urls.Add(new Item { Url = FixUpUrl(url, n.GetAttributeValue("href", "")), Title = n.InnerText });
+                    }
+                    HtmlAgilityPack.HtmlNode nextPageNode = null;
+                    string[] nextPageUrlPatterns = nextPageUrlPattern.Split('|');
+
+                    string anchorText = null;
+                    foreach (string p in nextPageUrlPatterns)
+                    {
+                        nextPageNode = doc.DocumentNode.SelectSingleNode(p);
+                        if (nextPageNode == null) continue;
+                        anchorText = nextPageNode.InnerText;
+                        string[] nextPageText = nextPage.Split('|');
+                        foreach (string text in nextPageText)
+                        {
+                            if (text.ToLower() == anchorText.ToLower() ||
+                                (text.Substring(0, 3).ToLower() == anchorText.Substring(0, 3).ToLower() && text.Substring(text.Length - 3, 3).ToLower() == anchorText.Substring(text.Length - 3, 3).ToLower()) ||
+                               text == "下一页" ||
+                               text == "Next&nbsp;Page" ||
+                               text == "Next&nbsp;&nbsp;Page")
+                            {
+                                nextPageUrl = nextPageNode.GetAttributeValue("href", "");
+                                nextPageUrl = FixUpUrl(url, nextPageUrl);
+                                break;
+                            }
+                        }
+                    }
+
+                    if (nextPageUrl == null)
+                    {
+                        HtmlAgilityPack.HtmlNode node = doc.DocumentNode.SelectSingleNode(nextPageUrlPattern);
+                        if (node != null)
+                        {
+                            nextPageUrl = node.GetAttributeValue("href", "");
+                            nextPageUrl = FixUpUrl(url, nextPageUrl);
+                        }
+                    }
+                }
+                else
+                {
+                    string html = GetHtmlByRegEx(encoding, url);
+                    html = GetHtml(html, rule.StartString, rule.EndString);
+                    //string urlPattern = @"(?<=" + rule.StartString + @")[\s\S]*?(?=" + rule.EndString + ")"; // <div class=""post_item_body"">    </h3>
+                    string achorPattern = @"(?<=<a [^>]+?>)[\s\S]*?(?=</a>)";
+                    string achorHref = @"(?<=href=[""']?)[\s\S]*?(?=[""']?[ |^>])";
+
+                    MatchCollection urlMatches = GetMatches(achorPattern, html);
+                    foreach (Match match in urlMatches)
+                    {
+                        string subTitle = GetFirstMatch(achorPattern, match.Value.Trim());
+                        if (subTitle == null)
+                            continue;
+                        string href = GetFirstMatch(achorHref, match.Value.Trim());
+                        if (href == null)
+                            continue;
+                        href = href.Trim('"', '/', '\'');
+                        urls.Add(new Item { Url = FixUpUrl(url, href), Title = "" });
+                    }
+                    nextPageUrl = GetNextPageUrl(html, url, nextPageUrlPattern, nextPage);
+                    nextPageUrl = FixUpUrl(url, nextPageUrl);
+                }
+            }
+            else {
+                SyndicationFeed feed = ReadRssFeed(url);
+                foreach (var item in feed.Items)
+                {
+                    urls.Add(new Item
+                    {
+                        Url = item.Links.FirstOrDefault().Uri.AbsoluteUri,
+                        Title = item.Title.Text,
+                        Author = item.Authors.FirstOrDefault().Name,
+                        LastUpdatedTime = item.LastUpdatedTime.ToLocalTime()
+                    });
+                }
+            }
+            Tuple<HashSet<Item>, string> tuple = Tuple.Create(urls, nextPageUrl);
+            return tuple;
+        }
+
+        private static SyndicationFeed ReadRssFeed(string url)
+        {
+            System.Xml.XmlReader reader = System.Xml.XmlReader.Create(url);//http://feeds.feedburner.com/AaronHoffman
+            SyndicationFeed feed = SyndicationFeed.Load(reader);
+            return feed;
         }
 
         private static Tuple<string, string> GetHtml(Encoding encoding, string url, CaptureRule rule)
@@ -257,11 +378,16 @@ namespace Crawler.Service
                 {
 
                 }
-                HtmlAgilityPack.HtmlNode node = doc.DocumentNode.SelectSingleNode(rule.XPath);
-                tuple = new Tuple<string, string>(
-                    doc.DocumentNode.SelectSingleNode("//title").InnerText,
-                    node.InnerHtml);
-                
+                string[] xpaths = rule.XPath.Split('|');
+
+                foreach (string path in xpaths)
+                {
+                    if(String.IsNullOrEmpty( path)) continue;
+                    HtmlAgilityPack.HtmlNode node = doc.DocumentNode.SelectSingleNode(rule.XPath);
+                    tuple = new Tuple<string, string>(
+                        doc.DocumentNode.SelectSingleNode("//title").InnerText,
+                        node.InnerHtml);
+                }
             }
             else
             {
@@ -527,6 +653,38 @@ namespace Crawler.Service
             {
                 w.WriteLine(message);
             }
+        }
+
+        private static HashSet<Item> GetFeeds(HashSet<Item> feeds)
+        {
+            ObjectCache cache = MemoryCache.Default;
+            HashSet<Item> fullFeeds = cache["DictionaryData"] as HashSet<Item>;
+
+            if (fullFeeds == null)
+            {
+                CacheItemPolicy policy = new CacheItemPolicy();
+                policy.AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(5.0);
+                if (feeds != null)
+                {
+                    cache.Set("DictionaryData", feeds, policy);
+                }
+            }
+            else
+            {
+                if (feeds != null)
+                {
+                    fullFeeds.UnionWith(feeds);
+                }
+            }
+            return fullFeeds;
+        }
+
+        private class Item
+        {
+            public string Url { get; set; }
+            public string Title { get; set; }
+            public string Author { get; set; }
+            public DateTimeOffset LastUpdatedTime { get; set; }
         }
 
     }

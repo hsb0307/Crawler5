@@ -147,5 +147,27 @@ namespace CrawlerDemo5.Controllers
                 return View();
             }
         }
+
+        public ActionResult Open(string url)
+        {
+            ViewBag.Html = GetHtml(System.Text.UTF8Encoding.UTF8, url);
+            return View();
+        }
+
+        private static string GetHtml(System.Text.Encoding encoding, string url)
+        {
+            Func<object, string> t4 = uri =>
+            {
+                using (var wc = new System.Net.WebClient())
+                {
+                    wc.Encoding = encoding; //Encoding.UTF8;
+                    return wc.DownloadString((String)uri);
+                }
+            };
+
+            System.Threading.Tasks.Task<string> task = System.Threading.Tasks.Task.Factory.StartNew<string>(() => t4(url));
+            return task.Result;
+            //return null;
+        }
     }
 }

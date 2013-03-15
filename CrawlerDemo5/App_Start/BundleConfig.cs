@@ -14,6 +14,8 @@ namespace CrawlerDemo5
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js",
                         "~/Scripts/jquery.layout-{version}.js"));
+            bundles.Add(new ScriptBundle("~/bundles/operamask").Include(
+                        "~/Scripts/operamasks-ui.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",
@@ -45,6 +47,16 @@ namespace CrawlerDemo5
                         "~/Content/themes/cupertino/jquery-ui.min.css",
                         "~/Content/themes/cupertino/jquery.ui.theme.css",
                         "~/Content/themes/cupertino/jquery.ui.layout.css"));
+
+            bundles.Add(new StyleBundle("~/Content/themes/apusic/css").Include(
+                        "~/Content/themes/apusic/om-apusic.css"));
+
+            bundles.Add(new StyleBundle("~/Content/themes/easyui/css").Include(
+                        "~/Content/main.css",
+                        "~/Content/themes/easyui/easyui.css",
+                        "~/Content/icon.css"));
+
+
         }
     }
 }

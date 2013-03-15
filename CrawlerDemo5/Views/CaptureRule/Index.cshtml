@@ -1,7 +1,7 @@
 ﻿@*@model IEnumerable<CrawlerDemo2.CaptureRule>*@
 
 @{
-    Layout = "~/Views/Shared/_EasyuiLayout.cshtml";
+    Layout = "~/Views/Shared/_SimpleLayout.cshtml";
     ViewBag.Title = "Index";
 }
 <style type="text/css">
@@ -23,7 +23,7 @@ p{ margin-left:10px;}
     <img src="@Url.Content("~/Content/ajax-loader.gif")" width="128" height="15" alt="Loading" />
 </div>*@
 @section scriptfiles {
-    @Html.Partial("scriptview")
+    @*@Html.Partial("scriptview")*@
 }
 
 @section scripts {

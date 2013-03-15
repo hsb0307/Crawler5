@@ -1,33 +1,165 @@
-﻿
-
-@{
-    //Layout = "~/Views/Shared/_EasyuiLayout.cshtml";
+﻿@{
+    Layout = "~/Views/Shared/_SimpleLayout.cshtml";
     ViewBag.Title = "任务类别管理";
+    //Layout = null;
 }
-<style type="text/css">
-body{ margin-left:0}
-.datagrid{ }
-.datagrid .panel-header{ border-left-width:0}
-.datagrid .panel-body{ border-left-width:0}
-h2{ margin-left:10px;}
-p{ margin-left:10px;}
-</style>
-<h2>文章类别管理</h2>
+<h2>任务类别管理</h2>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 
 <table id="tblTaskCategory"></table>
-@section scriptfiles {
-   @* @Html.Partial("scriptview")*@
-}
-
 @section scripts {
 <script type="text/javascript">
-    
+    function saveRow(rowIndex) { alert(rowIndex);}
+    function cancelRow(rowIndex) { alert(rowIndex); }
+    function editRow(rowIndex) { alert(rowIndex); }
+    function deleteRow(rowIndex) { alert(rowIndex); }
+    function addTaskItem(taskId) { addTabToParent('添加文章类别', '@Url.Action("Create", "TaskCategory")' + '?taskid=' + taskId); }
+    function viewTaskItem(taskId) { addTabToParent('查看文章类别', '@Url.Action("Index", "TaskCategory")' + '?taskid=' + taskId); }
+
     $(document).ready(
     function () {
-       
+        var columns = [[
+           { field: 'ID', checkbox: true },
+           { field: 'Name', title: '名称', width: 80, align: 'right', sortable: true, resizable: true },
+           { field: 'IsLeaf', title: '有无子分类', width: 80, align: 'right', sortable: true, resizable: true },
+           { field: 'Path', title: '代码', width: 80, align: 'right', sortable: true, resizable: true },
+           { field: 'CreatedDate', title: '日期', width: 80, align: 'right', sortable: true, resizable: true },
+           {
+               field: 'opertion', title: '操作列', width: 80, rowspan: 2, align: 'center',
+               formatter: function (value, rowData, rowIndex) {
+                   var a = '<a href="javascript:void(0);" title="' + rowIndex + '" onclick="editRow(&quot;' + rowIndex + '&quot;);" style="text-decoration: none;color: #800080;">编辑</a> ';
+                   var b = '<a href="javascript:void(0);" title="' + rowIndex + '" onclick="addTaskItem(&quot;' + rowData.ID + '&quot;);" style="text-decoration: none;color: #800080;">添加任务项</a> ';
+                   var c = '<a href="javascript:void(0);" title="' + rowIndex + '" onclick="viewTaskItem(&quot;' + rowData.ID + '&quot;);" style="text-decoration: none;margin-left:5px;color: #800080;">查看</a> ';
+                   var d = '<a href="javascript:void(0);" title="' + rowIndex + '" onclick="deleteRow(&quot;' + rowIndex + '&quot;);" style="text-decoration: none;margin-left:5px; color: #800080;">删除</a>';
+                   return a + b + c + d;
+               }
+           }
+        ]];
+        function createUser() {
+            //$('#btn-save,#btn-cancel').linkbutton();
+            //$('#industry').datebox({ currentText: '今天', closeText: "取消", okText: '确定' });
+
+            //var editForm = $('#userForm').window({ modal: true }).window('open');
+            showWindow("添加任务类别", '@Url.Action("Create", "TaskCategory")');
+        }
+        var btnCreate = { id: 'btnCreate', text: '新增', iconCls: 'icon-add', handler: createUser };
+        var btnEdit = { id: 'btnEdit', text: '编辑', iconCls: 'icon-edit', disabled: true, handler: createUser };
+        var btnSave = { id: 'btnSave', text: '保存', iconCls: 'icon-save', disabled: false, handler: createUser };
+        var btnDelete = { id: 'btnDelete', text: '删除', iconCls: 'icon-remove', handler: createUser };
+        var btnSearch = { id: 'btnSearch', text: '查询', iconCls: 'icon-search', handler: createUser };
+        var btnSelect = { id: 'btnSelect', text: '全选', iconCls: 'icon-ok', handler: createUser };
+
+        var toolbar = [btnCreate, '-', btnEdit, '-', btnSave, '-', btnDelete, '-', btnSearch, '-', btnSelect];
+
+        $('#tblTaskCategory').datagrid({
+            url: '@Url.Action("GetPaged","TaskCategory")',
+            title: '类别列表',
+            width: document.body.offsetWidth - 30,
+            height: parent.$("#center").height() -100 ,// document.body.offsetHeight -60 , // $(window.parent.document.getElementById("center")).height() - $("#operationRegion").height() - $("#pageTitle").height() - 100,
+            fitColumns: true,
+            nowrap: false,
+            loadMsg: "数据加载中，请稍后……",
+            pagination: true,
+            pageSize: 25,
+            idField: 'ID',
+            columns: columns,
+            rowStyler: function (index, row, css) {
+                //                    if (row.listprice > 80) {
+                //                        return 'background-color:#6293BB;color:#fff;font-weight:bold;';
+                //                    }
+            },
+            toolbar: toolbar,
+            onSelect: function (rowIndex, rowData) {
+                //btnEdit.disabled = false;
+                $('#btnEdit').linkbutton('enable');
+            },
+            onBeforeEdit: function (index, row) {
+                alert("onBeforeEdit");
+                row.editing = true;
+                $('#tblTaskCategory').datagrid('refreshRow', index);
+                count++;
+            },
+            onAfterEdit: function (index, row) {
+                alert("onAfterEdit");
+                row.editing = true;
+                $('#tblTaskCategory').datagrid('refreshRow', index);
+                count--;
+            },
+            onCancelEdit: function (index, row) {
+                alert("onCancelEdit");
+                row.editing = false;
+                $('#tblTaskCategory').datagrid('refreshRow', index);
+                count--;
+            }
+        });
+
+
+        var pg = $("#tblTaskCategory").datagrid("getPager");
+        if (pg) {
+            $(pg).pagination({
+                beforePageText: '当前是第',
+                afterPageText: '页，总共 {pages} 页',
+                displayMsg: '当前显示从 {from} 到 {to}，总共 {total} 条',
+                onBeforeRefresh: function () {
+                    alert('before refresh');
+                },
+                onRefresh: function (pageNumber, pageSize) {
+                    alert(pageNumber);
+                    alert(pageSize);
+                },
+                onChangePageSize: function () {
+                    alert('pagesize changed');
+                },
+                onSelectPage: function (pageNumber, pageSize) {
+
+                    //重新加载datagrid的数据  
+                    var url = '@Url.Action("GetPaged","TaskCategory")';
+                    //url += "?pageIndex=" + pageNumber;
+                    var opts = $('#tblTaskCategory').datagrid('options');
+                    opts.url = url;
+                    alert(opts.url);
+                    alert($('#Industry').combobox('getValue'));
+                    var queryParams = opts.queryParams;
+                    queryParams.industry = $('#Industry').combobox('getValue');
+                    queryParams.category = $('#Category').combobox('getValue');
+                    queryParams.institution = $("txtSrcConn").val();
+                    alert(queryParams.industry);
+
+                    $("#tblTaskCategory").datagrid('reload');
+
+                    // ================================
+
+                }
+            });
+            }
+
+        $("#addItem").click(function () {
+            var row = $("#tblTaskCategory").datagrid("getSelected");
+            if (row) {
+                //showWindow("ddd", '@Url.Action("Create", "TaskCategory")' + '?taskid=' + row.ID);
+                addTab('添加任务项', '@Url.Action("Create", "TaskCategory")' + '?taskid=' + row.ID);
+            } else {
+                alert("请先选中要添加任务项的任务！");
+            }
+        });
+
+        // =============================
+        $("#btnSearch").click(function () {
+            //var url = '@Url.Action("GetPaged", "TaskCategory")';
+            //url += "?pageIndex=" + pageNumber;
+            var opts = $('#tblTaskCategory').datagrid('options');
+            var queryParams = opts.queryParams;
+            //opts.url = url;
+            alert(opts.url);
+            queryParams.industry = $('#Industry').combobox('getValue');
+            queryParams.category = $('#Category').combobox('getValue');
+            queryParams.institution = $("#txtSrcConn").val();
+            $("#tblTaskCategory").datagrid('reload');
+        });
+
+        // =============================
 
     });
 </script>

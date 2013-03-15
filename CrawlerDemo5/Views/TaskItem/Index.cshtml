@@ -1,7 +1,7 @@
 ﻿@*@model IEnumerable<Crawler.Entity.TaskItem>*@
 
 @{
-    Layout = "~/Views/Shared/_EasyuiLayout.cshtml";
+    Layout = "~/Views/Shared/_SimpleLayout.cshtml";
     ViewBag.Title = "任务项管理";
 }
 <style type="text/css">
@@ -23,7 +23,7 @@ p{ margin-left:10px;}
     <img src="@Url.Content("~/Content/ajax-loader.gif")" width="128" height="15" alt="Loading" />
 </div>*@
 @section scriptfiles {
-    @Html.Partial("scriptview")
+   @* @Html.Partial("scriptview")*@
 }
 
 @section scripts {
@@ -61,8 +61,17 @@ p{ margin-left:10px;}
                 //    content: data,
                 //    closable: true
                 //});
-
+                
                 //alert("success");
+                var rows = eval("([" + data + "])");
+                var html = "<ul>";
+                var s = '@Html.ActionLink("打开", "Open", "Article", new { url = "KKKKKK" }, new { target = "_blank" })';
+                for (var i = 0; i < rows.length; i++) {
+                    
+                    html += "<li><a href='" + rows[i].url + "' target='_blank'>" + rows[i].title + "</a>" + s.replace(/KKKKKK/, rows[i].url) + "</li>"
+                }
+                $("#pageTitle").append(html + "</ul>")
+
             },
             error: function (jqXhr, textStatus, errorThrown) {
                 alert("Error '" + jqXhr.status + "' (textStatus: '" + textStatus + "', errorThrown: '" + errorThrown + "')");

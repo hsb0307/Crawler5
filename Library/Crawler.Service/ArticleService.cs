@@ -10,6 +10,7 @@ namespace Crawler.Service
 {
     public interface IArticleService : IRepository<Article>
     {
+        Article GetArticleByURL(string url);
 
     }
 
@@ -22,6 +23,11 @@ namespace Crawler.Service
         {
             this.articleRepository = articleRepository;
 
+        }
+
+        public Article GetArticleByURL(string url)
+        {
+            return articleRepository.Query.SingleOrDefault(a => a.Url == url);
         }
 
     }

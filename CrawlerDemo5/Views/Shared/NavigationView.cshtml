@@ -1,0 +1,18 @@
+﻿<div id="nav" class="easyui-accordion" data-options="fit:true,border:false">
+	<div id="menuTask" title="Title1" style="padding:0px;overflow:auto;">
+        content1
+	</div>
+	<div id="menuWebContent" title="Title2" data-options="selected:true" style="padding:0px;">
+        <ul>
+            <li><a href="javascript:void(0);" title="任务类别管理" onclick="addTab('任务类别管理','@Url.Action("Index", "TaskCategory")');" >任务类别管理</a> </li>
+            <li><a href="javascript:void(0);" title="文章类别" onclick="addTab('文章类别','@Url.Action("Index", "ArticleCategory")');" >文章类别</a> </li>
+            <li><a href="javascript:void(0);" title="任务管理" onclick="addTab('任务管理','@Url.Action("Index", "Task")');" >任务管理</a> </li>
+            <li><a href="javascript:void(0);" title="任务项管理" onclick="addTab('任务项管理','@Url.Action("Index", "TaskItem")');" >任务项管理</a> </li>
+            <li><a href="javascript:void(0);" title="捕获规则管理" onclick="addTab('捕获规则管理','@Url.Action("Index", "CaptureRule")');" >捕获规则管理</a> </li>
+            <li><a href="javascript:void(0);" title="文章列表" onclick="addTab('文章列表','@Url.Action("Index", "Article")');" >文章列表</a> </li>
+        </ul> 
+	</div>
+	<div title="Title3" style="padding:10px">
+		content3
+	</div>
+</div>

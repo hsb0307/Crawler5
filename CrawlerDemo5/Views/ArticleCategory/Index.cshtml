@@ -1,7 +1,7 @@
 ﻿
 
 @{
-    Layout = "~/Views/Shared/_EasyuiLayout.cshtml";
+    Layout = "~/Views/Shared/_SimpleLayout.cshtml";
     ViewBag.Title = "文章类别管理";
 }
 <style type="text/css">
@@ -19,7 +19,7 @@ p{ margin-left:10px;}
 
 <table id="tblArticleCategory"></table>
 @section scriptfiles {
-    @Html.Partial("scriptview")
+    @*@Html.Partial("scriptview")*@
 }
 
 @section scripts {
@@ -36,9 +36,9 @@ p{ margin-left:10px;}
         var columns = [[
            { field: 'ID', checkbox: true },
            { field: 'Name', title: '名称', width: 80, align: 'right', sortable: true, resizable: true },
-           { field: 'CategoryId', title: '性别', width: 80, align: 'right', sortable: true, resizable: true },
-           { field: 'TaskType', title: '单位代码', width: 80, align: 'right', sortable: true, resizable: true },
-           { field: 'Encoding', title: '单位', width: 80, align: 'right', sortable: true, resizable: true },
+           { field: 'Path', title: '代码', width: 80, align: 'right', sortable: true, resizable: true },
+           { field: 'IsLeaf', title: '末级分类', width: 80, align: 'right', sortable: true, resizable: true },
+           { field: 'CreatedDate', title: '创建日期', width: 80, align: 'right', sortable: true, resizable: true },
            {
                field: 'opertion', title: '操作列', width: 80, rowspan: 2, align: 'center',
                formatter: function (value, rowData, rowIndex) {

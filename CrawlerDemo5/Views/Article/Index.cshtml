@@ -1,7 +1,7 @@
 ﻿@*@model IEnumerable<CrawlerDemo2.Article>*@
 
 @{
-    Layout = "~/Views/Shared/_EasyuiLayout.cshtml";
+    Layout = "~/Views/Shared/_SimpleLayout.cshtml";
     ViewBag.Title = "Index";
 }
 <style type="text/css">
@@ -17,7 +17,7 @@ p{ margin-left:10px;}
 <table id="tblArticle"></table>
 
 @section scriptfiles {
-    @Html.Partial("scriptview")
+    @*@Html.Partial("scriptview")*@
 }
 
 
@@ -28,8 +28,6 @@ p{ margin-left:10px;}
             name = name.substr(0, 40) + "...";
         addTabToParent(name, '@Url.Action("Details", "Article")' + '?id=' + id);
     }
-
-
 
     function deleteRow(id) {
         //alert(taskItemId);
@@ -74,7 +72,7 @@ p{ margin-left:10px;}
         var columns = [[
                 { field: 'ID', checkbox: true },
                 {
-                    field: 'Name', title: '标题', width: 380, resizable: false,
+                    field: 'Name', title: '标题', width: 330, resizable: false,
                     formatter: function (value, rowData, rowIndex) {
                         if (value && value.length > 90) {
                             value = value.substr(0, 90) + "...";
@@ -83,20 +81,21 @@ p{ margin-left:10px;}
                     }
                 },
                 {
-                    field: 'Url', title: 'Url', width: 160, align: 'right', sortable: true, resizable: true,
+                    field: 'Url', title: 'Url', width: 190, sortable: true, resizable: true,
                     formatter: function (value, rowData, rowIndex) {
+                        var s = '@Html.ActionLink("打开", "Open", new { url = "KKKKKK" }, new { target = "_blank" })';
                         if (value && value.length > 40) {
-                            return "<a href='" + value + "' target='_blank'>" + value.substr(0, 40) + "</a>";
+                            return s.replace(/KKKKKK/, value) + "<a href='" + value + "' target='_blank'>" + value.substr(0, 40) + "</a>";
                             //return value.substr(0, 20);
                         }
                         else {
-                            return "<a href='" + value + "' target='_blank'>" + value + "</a>";
+                            return s.replace(/KKKKKK/, value) + "<a href='" + value + "' target='_blank'>" + value + "</a>";
                         }
                     }
                 },
                 //{ field: 'MaxPageCount', title: 'MaxPageCount', width: 80, align: 'right', sortable: true, resizable: false },
                 {
-                    field: 'CreatedDate', title: 'CreatedDate', width: 80, align: 'right', sortable: true, resizable: false,
+                    field: 'CreatedDate', title: 'CreatedDate', width: 96, align: 'right', sortable: true, resizable: false,
                     formatter: function (value, rowData, rowIndex) {
                         return convertDateString(value);
                     }
