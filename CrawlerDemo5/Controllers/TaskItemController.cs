@@ -175,7 +175,7 @@ namespace CrawlerDemo5.Controllers
                 return HttpNotFound();
             }
             ViewBag.TaskId = new SelectList(taskService.GetAll(), "ID", "Name", taskitem.TaskId);
-            ViewBag.PageCategory = new SelectList(DictionaryDataUtil.GetData("pageType"), "ID", "Name", 1);
+            ViewBag.PageCategory = new SelectList(DictionaryDataUtil.GetData("pageType"), "ID", "Name", taskitem.PageCategory);
             
             return View(taskitem);
             

@@ -13,7 +13,6 @@ h2{ margin:10px 5px 10px 5px;}
 p{ margin-left:10px;}
 
 </style>
-<h2 id="pageTitle">文章列表</h2>
 <table id="tblArticle"></table>
 
 @section scriptfiles {
@@ -131,7 +130,7 @@ p{ margin-left:10px;}
 
         $('#tblArticle').datagrid({
             url: '@Url.Action("GetPaged","Article")' + (window.location.search ? ('?' + window.location.search.substr(1)) : ''),
-                 title: '人员列表',
+                 title: '文章列表',
                  width: parent.$("#tabControl").width() - 10,
                  height: parent.$("#center").height() - 90,// document.body.offsetHeight -60 , // $(window.parent.document.getElementById("center")).height() - $("#operationRegion").height() - $("#pageTitle").height() - 100,
                  fitColumns: true,

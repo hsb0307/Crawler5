@@ -1,0 +1,32 @@
+﻿@model System.ServiceModel.Syndication.SyndicationFeed
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm( "GetItems", "Rss" ))
+{
+    <input type="text" id="txtUrl" name="txtUrl"  style="width:400px;"/>
+    <input type="submit" value="GetRSS" />
+}
+
+@using (Html.BeginForm( "GetHtml", "Rss" ))
+{
+    <input type="text" id="txtHttp" name="txtHttp"  style="width:400px;"/>
+    <input type="submit" value="GetHtml" />
+}
+<style type="text/css">
+	#blogs{ list-style: none;}
+    #blogs li{line-height:26px;}
+	
+</style>
+<ul id="blogs">
+    @foreach (var item in ViewData.Model.Items)
+    {
+        <li>@Html.ActionLink(item.Title.Text + "["+ item.Authors.FirstOrDefault().Name + item.LastUpdatedTime.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss") + "]" , "Open", new { Url = item.Links.FirstOrDefault().Uri.AbsoluteUri }, new { target="_blank" })</li>
+        
+    }
+
+@*    <li><a href="@item.Links.FirstOrDefault().Uri.AbsoluteUri" target="_blank">@item.Title.Text</a>  </li>*@
+
+</ul>
