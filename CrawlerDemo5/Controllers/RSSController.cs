@@ -21,8 +21,8 @@ namespace CrawlerDemo5.Controllers
             // http://feeds.feedburner.com/AaronHoffman
             // http://www.cnbeta.com/backend.php
 
-            SyndicationFeed feed = ReadRssFeed("http://feed.cnblogs.com/blog/sitehome/rss");
-            //SyndicationFeed feed = ReadRssFeed("http://feeds.feedburner.com");
+            SyndicationFeed feed = ReadRssFeed("http://feeds.feedburner.com");
+            //SyndicationFeed feed = ReadRssFeed("http://feeds.feedburner.com");//http://feed.cnblogs.com/blog/sitehome/rss
             return View(feed);
         }
 
