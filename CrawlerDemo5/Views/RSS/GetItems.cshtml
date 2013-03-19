@@ -14,7 +14,7 @@
     @if(Model != null) {
         foreach (var item in ViewData.Model.Items)
         {
-            <li>@Html.ActionLink(item.Title.Text , "Open", new {Url=item.Links.FirstOrDefault().Uri.AbsoluteUri}, new { target="_blank" }) <span style="margin-left: 10px;">@("[" + item.LastUpdatedTime.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss") + "]" )</span></li>
+            <li>@Html.ActionLink(item.Title.Text , "Open", new {Url= Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes( item.Links.FirstOrDefault().Uri.AbsoluteUri))}, new { target="_blank" }) <span style="margin-left: 10px;">@("[" + item.LastUpdatedTime.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss") + "]" )</span></li>
         }
     }  else {
         <li>@ViewBag.Message</li>

@@ -23,20 +23,23 @@ namespace CrawlerDemo5.Controllers
 
             //The underlying connection was closed: An unexpected error occurred on a receive.
             SyndicationFeed feed = null;
-            try
-            {
-                feed = ReadRssFeed("http://feed.cnblogs.com/blog/sitehome/rss");
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Message = ex.Message;
-            }
+            
+            //try
+            //{
+            //    feed = ReadRssFeed("http://feed.cnblogs.com/blog/sitehome/rss");
+            //}
+            //catch (Exception ex)
+            //{
+            //    ViewBag.Message = ex.Message;
+            //}
+
             //SyndicationFeed feed = ReadRssFeed("http://feeds.feedburner.com");//
             return View(feed);
         }
 
         public ActionResult Open(string url)
         {
+            url =  System.Text.Encoding.UTF8.GetString( Convert.FromBase64String( url));
             ViewBag.Html = GetHtml(System.Text.UTF8Encoding.UTF8, url);
             return View();
         }
@@ -64,7 +67,21 @@ namespace CrawlerDemo5.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Html = "<h2> 惨了，打不开" + txtHttp + " 啊，已经穿墙了啊！</h2><div>" + ex.Message + "</div>"; 
+                ViewBag.Html = "<h2> 惨了，打不开" + txtHttp + " 啊!</h2><div>" + ex.Message + "</div>"; 
+            }
+            return View("Open");
+        }
+
+        public ActionResult GetWallOut(string txtWallOut)
+        {
+            string url = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(txtWallOut));
+            try
+            {
+                ViewBag.Html = GetHtml(System.Text.UTF8Encoding.UTF8, url);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Html = "<h2> 惨了，打不开" + url + " 啊，已经穿墙了啊！</h2><div>" + ex.Message + "</div>";
             }
             return View("Open");
         }

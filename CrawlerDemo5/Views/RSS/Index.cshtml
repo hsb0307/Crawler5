@@ -7,19 +7,27 @@
 
 @using (Html.BeginForm( "GetItems", "Rss" ))
 {
-    <input type="text" id="txtUrl" name="txtUrl"  style="width:400px;"/>
+    <input type="text" id="txtUrl" name="txtUrl"  />
     <input type="submit" value="GetRSS" />
 }
 
 @using (Html.BeginForm( "GetHtml", "Rss" ))
 {
-    <input type="text" id="txtHttp" name="txtHttp"  style="width:400px;"/>
+    <input type="text" id="txtHttp" name="txtHttp"  />
     <input type="submit" value="GetHtml" />
 }
+
+@using (Html.BeginForm( "GetWallOut", "Rss" ))
+{
+    <input type="text" id="txtWallOut" name="txtWallOut"  />
+    <input type="submit" value="GetWallOut" />
+    <input type="button" value="EncodeToBase64" id="btnEncode" />
+}
+
 <style type="text/css">
 	#blogs{ list-style: none;}
     #blogs li{line-height:26px;}
-	
+    input[type=text] { margin: 10px; width:500px;}
 </style>
 <ul id="blogs">
     @if(Model != null) {
@@ -35,3 +43,14 @@
 @*    <li><a href="@item.Links.FirstOrDefault().Uri.AbsoluteUri" target="_blank">@item.Title.Text</a>  </li>*@
 
 </ul>
+
+@section scripts {
+<script type="text/javascript">
+    $(function () {
+        $("#btnEncode").on("click", function () {
+            var txtWallOut = document.getElementById("txtWallOut");
+            txtWallOut.value = window.btoa(txtWallOut.value);
+        });
+    });
+</script>
+}
