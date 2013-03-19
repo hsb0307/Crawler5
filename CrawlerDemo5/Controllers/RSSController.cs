@@ -63,7 +63,8 @@ namespace CrawlerDemo5.Controllers
         {
             try
             {
-                ViewBag.Html = GetHtml(System.Text.UTF8Encoding.UTF8, txtHttp);
+                //ViewBag.Html = GetHtml(System.Text.UTF8Encoding.UTF8, txtHttp);
+                ViewBag.Html = GetHtmlByXPath(null, txtHttp);
             }
             catch (Exception ex)
             {
@@ -77,7 +78,8 @@ namespace CrawlerDemo5.Controllers
             string url = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(txtWallOut));
             try
             {
-                ViewBag.Html = GetHtml(System.Text.UTF8Encoding.UTF8, url);
+                ViewBag.Html = GetHtmlByXPath(null, url);
+                //ViewBag.Html = GetHtml(System.Text.UTF8Encoding.UTF8, url);
             }
             catch (Exception ex)
             {
@@ -193,6 +195,34 @@ namespace CrawlerDemo5.Controllers
             XmlReader reader = XmlReader.Create(url);//http://feeds.feedburner.com/AaronHoffman
             SyndicationFeed feed = SyndicationFeed.Load(reader);
             return feed;
+        }
+
+        private static string GetHtmlByXPath(System.Text.Encoding encoding, string url)
+        {
+            HtmlAgilityPack.HtmlWeb htmlWeb = new HtmlAgilityPack.HtmlWeb();
+            HtmlAgilityPack.HtmlDocument doc = null;
+            if (encoding != null)
+            {
+                htmlWeb.AutoDetectEncoding = false;
+                htmlWeb.OverrideEncoding = encoding;
+            }
+            try
+            {
+                doc = htmlWeb.Load(url);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+
+            }
+            if (doc == null)
+                return "";
+            else
+                return doc.DocumentNode.InnerHtml;
+            //return doc;
         }
     }
 }
