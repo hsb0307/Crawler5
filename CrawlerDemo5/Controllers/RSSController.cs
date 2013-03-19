@@ -21,7 +21,16 @@ namespace CrawlerDemo5.Controllers
             // http://feeds.feedburner.com/AaronHoffman
             // http://www.cnbeta.com/backend.php
 
-            SyndicationFeed feed = ReadRssFeed("http://feed.cnblogs.com/blog/sitehome/rss");
+            //The underlying connection was closed: An unexpected error occurred on a receive.
+            SyndicationFeed feed = null;
+            try
+            {
+                feed = ReadRssFeed("http://feed.cnblogs.com/blog/sitehome/rss");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+            }
             //SyndicationFeed feed = ReadRssFeed("http://feeds.feedburner.com");//
             return View(feed);
         }
@@ -35,13 +44,28 @@ namespace CrawlerDemo5.Controllers
         // GetItems
         public ActionResult GetItems(string txtUrl)
         {
-            SyndicationFeed feed = ReadRssFeed(txtUrl);
+            SyndicationFeed feed = null;
+            try
+            {
+                feed = ReadRssFeed(txtUrl);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+            }
             return View(feed);
         }
 
         public ActionResult GetHtml(string txtHttp)
         {
-            ViewBag.Html = GetHtml(System.Text.UTF8Encoding.UTF8, txtHttp);
+            try
+            {
+                ViewBag.Html = GetHtml(System.Text.UTF8Encoding.UTF8, txtHttp);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Html = "<h2> 惨了，打不开" + txtHttp + " 啊，已经穿墙了啊！</h2><div>" + ex.Message + "</div>"; 
+            }
             return View("Open");
         }
 
