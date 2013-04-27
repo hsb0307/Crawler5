@@ -78,6 +78,7 @@ namespace Crawler.Service
                     a.Name = t.Item1;
                     a.ContentText = t.Item2;
                 }
+
                 articleRepository.Create(a);
 
                 feeds.Add(new Item { Title = a.Name, Url = a.Url });

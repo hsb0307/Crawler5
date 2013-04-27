@@ -12,6 +12,7 @@ namespace Crawler.Service
     {
         Article GetArticleByURL(string url);
 
+
     }
 
     public class ArticleService : ServiceBase<Article>, IArticleService
